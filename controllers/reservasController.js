@@ -17,7 +17,7 @@ exports.buscarReserva = async (req,res) =>{
     try {
         let dataReserva=await Reservas.findOne({alias:req.body.alias});
         if(dataReserva){
-            res.json(dataReserva);
+            res.json({status:"success", dataReserva});
         }else{
             res.json({status:"error", msg:"No hay Reserva"});
         }

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 //const urlFinal="mongodb://localhost:27017/apiAngeles";
-const urlFinal="https://aqui va la url";
+const urlFinal="mongodb+srv://mquesquenpa3:Martin123456@cluster0.jw2qw.mongodb.net/Peluqueria?retryWrites=true&w=majority";
 
 const dbConnection = async() =>{
     try {

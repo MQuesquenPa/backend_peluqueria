@@ -2,52 +2,26 @@ const express = require('express');
 const router = express.Router();
 
 //controllers Api
-const usuarioController = require('../controllers/usuariosController');
-const codigoController = require('../controllers/codigosController');
-const operacionesController = require('../controllers/operacionesController');
+const usuariosController = require('../controllers/usuariosController');
+
 const categoriasController = require('../controllers/categoriasController');
 const peluquerosController = require('../controllers/peluquerosController');
 const productosController = require('../controllers/productosController');
 const reservasController = require('../controllers/reservasController');
-
+const clientesController = require('../controllers/clientesController');
 
 
 module.exports = function() {
+    
     //**********************/
         //RUTAS USUARIO
     //**********************/
-    //Agregar Usuarios registro normal
-    router.post('/crear-cuenta',usuarioController.nuevoUsuario);
-    
-    //Autenticar Usuarios
-    router.post('/autenticar',usuarioController.autenticarUsuario);
+    //Agregar Usuario 
+    router.post('/new-usuario-data', usuariosController.nuevoUsuario);
 
-    //Recuperar Contraseña Usuarios
-    router.post('/recover-password',usuarioController.recoverPassword);
+    //validando Usuario 
+    router.get('/join-usuario-data', usuariosController.validandoUsuario);
 
-    //Válidar Codigo de Recuperación
-    router.post('/verify-code-data',usuarioController.verifyCodeRecover);
-    
-    //Actualizar Contraseña del Usuario
-    router.post('/update-password-with-code',usuarioController.UpdatePasswordRecover);
-
-    //Crear Nuevo Código
-    router.post('/new-code-register',codigoController.nuevoCodigo);
-
-    //Obtener Data Usuario
-    router.get('/get-data-saldo/:idUsuario',usuarioController.traerPerfilUsuario);
-
-    //Verificar Contacos con el aplicativo
-    router.post('/get-user-verify-app',usuarioController.verifyUsersExists);
-
-    //Verificar Contacos con el aplicativo
-    router.post('/get-user-by-phone',usuarioController.traerPerfilUsuarioTelefono);
-    
-    //Se Genera el Código y validación
-    router.post('/create-code-user-send',usuarioController.crearMetodoMensajeTransferencia);
-
-    //Nueva Operación
-    router.post('/new-operation-send',operacionesController.nuevoEnvio);
 
     //**********************/
         //RUTAS CATEGORIA
