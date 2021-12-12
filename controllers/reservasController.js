@@ -3,7 +3,13 @@ const Reservas = require('../models/Reservas');
 // agrega un nuevo Reservas
 exports.nuevoReserva = async (req,res) =>{
     try {
-        let dataReserva= new Reservas({descripcion:req.body.descripcion,fecha:req.body.fecha, alias:req.body.alias,precio:req.body.precio,idPeluquero:req.body.idPeluquero});
+        let dataReserva= new Reservas({
+            descripcion:req.body.descripcion,
+            fecha:req.body.fecha,
+            alias:req.body.alias,
+            precio:req.body.precio,
+            idPeluquero:req.body.idPeluquero
+        });
         let dataResponse=await dataReserva.save();
         res.json({status:"success",data:dataResponse});
     }catch(error){
@@ -49,9 +55,11 @@ exports.actualizarReserva = async (req,res) =>{
         if(dataReserva){
             await Reservas.findOneAndUpdate(
                 {_id : dataReserva._id}, {
-                    descripcion:req.body.descripcion, 
-                    fecha:req.body.fecha, alias:req.body.alias,
-                    precio:req.body.precio,  idPeluquero:req.body.idPeluquero 
+                    descripcion:req.body.nuevoDescripcion,
+                    fecha:req.body.nuevoFecha,
+                    alias:req.body.nuevoAlias,
+                    precio:req.body.nuevoPrecio,
+                    idPeluquero:req.body.nuevoIdPeluquero 
                 }
             )
             res.json({status: 'success', msg:"Se actualizo correctamente el Reserva"});

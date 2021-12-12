@@ -55,14 +55,13 @@ exports.actualizarPeluquero = async (req,res) =>{
             )
             res.json({status: 'success', msg:"Se actualizo el peluquero"});
         }else{
-            res.json({status:"error",msg:"No se pudo actualizar el peluquero"});
+            res.json({status:"error", msg:"No se pudo actualizar el peluquero"});
         }
     }catch(error){
         console.log(error);
         res.json({status:"error",msg:"ERROR al actualizar el peluquero"});
     }
 }
-
 
 // eliminar un Peluquero
 exports.EliminarPeluquero = async (req,res) =>{
