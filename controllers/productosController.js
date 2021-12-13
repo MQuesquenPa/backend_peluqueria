@@ -1,15 +1,44 @@
 const Productos = require('../models/Productos');
+const multer = require('multer');
+const shortid = require('shortid');
+
+const URL_SERVER_BASE="http://192.168.1.3:5000/";
+//Configuración Multer
+const configuracionMulter = {
+    storage : fileStorage = multer.diskStorage({
+        destination: (req, file, cb)=>{
+            cb(null, __dirname+'../../uploads/');
+        },
+        filename: (req, file ,cb)=>{
+            const extension = file.mimetype.split('/')[1];
+            cb(null,`${shortid.generate()}.${extension}`);
+        }
+    })
+}
+
+//pasar la configuracion y el campo 
+const upload = multer(configuracionMulter).single('foto');
+
+//Sube un Archivo
+exports.subirArchivo = (req, res ,next) => {
+    upload(req, res, function(error){
+        if(error){
+            res.json({mensaje: error});
+        }
+        return next();
+    })
+}
 
 // agrega un nuevo producto
 exports.nuevoProducto = async (req,res) =>{
-    try {
+    try{
         let dataProducto= new Productos({nombre:req.body.nombre, 
             descripcion:req.body.descripcion, stock:req.body.stock,
-             precio:req.body.precio, imagen:req.body.imagen, idCategoria:req.body.idCategoria  });
+             precio:req.body.precio, imagen:URL_SERVER_BASE+req.file.filename, idCategoria:req.body.categoria});
         let dataResponse=await dataProducto.save();
         res.json({status:"success",data:dataResponse});
-    }catch(error){
-        console.log(error);
+    }catch(e){  
+        console.log(e);
         res.json({status:"error",msg:"Error al crear el Producto"});
     }
 }

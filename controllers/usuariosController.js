@@ -22,7 +22,7 @@ exports.validandoUsuario = async (req,res) =>{
     try {
         let dataUsuario=await Usuarios.findOne({correo:req.body.correo, password:req.body.password});
         if(dataUsuario){
-            res.json({status:"success", dataUsuario});
+            res.json({status:"success",data:dataUsuario});
         }else{
             res.json({status:"error", msg:"Correo o Contraseña Incorrecta"});
         }

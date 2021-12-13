@@ -20,7 +20,8 @@ module.exports = function() {
     router.post('/new-usuario-data', usuariosController.nuevoUsuario);
 
     //validando Usuario 
-    router.get('/join-usuario-data', usuariosController.validandoUsuario);
+    router.post('/join-usuario-data', usuariosController.validandoUsuario);
+    
 
 
     //**********************/
@@ -83,7 +84,8 @@ module.exports = function() {
    //**********************/
         //RUTAS PRODUCTOS
     //**********************/
-
+    //Agregar Producto con Imagen
+    router.post('/nuevo-producto-imagen',productosController.subirArchivo,productosController.nuevoProducto);
      //Agregar PRODUCTO 
      router.post('/new-producto-data',productosController.nuevoProducto);
 
