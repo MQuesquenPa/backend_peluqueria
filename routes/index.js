@@ -100,6 +100,16 @@ module.exports = function() {
  
      //seleccionar all PRODUCTOS
      router.get('/select-producto-by-name', productosController.selectProducto);
+  
+   //**********************/
+        //RUTAS FOTOS
+    //**********************/
+
+    //Agregar Foto con Imagen
+    router.post('/nuevo-foto-imagen',productosController.subirArchivo,productosController.nuevoFoto);
+
+    //seleccionar all PRODUCTOS
+    router.get('/select-foto-by-name', productosController.selectFotos);
 
 
    //**********************/

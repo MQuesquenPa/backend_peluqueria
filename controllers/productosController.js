@@ -1,4 +1,5 @@
 const Productos = require('../models/Productos');
+const Fotos = require('../models/Fotos');
 const multer = require('multer');
 const shortid = require('shortid');
 
@@ -27,6 +28,33 @@ exports.subirArchivo = (req, res ,next) => {
         }
         return next();
     })
+}
+
+// agrega una nueva foto
+exports.nuevoFoto = async (req,res) =>{
+    try{
+        let dataFoto= new Fotos({ imagen:URL_SERVER_BASE+req.file.filename});
+        let dataResponse=await dataFoto.save();
+        res.json({status:"success",data:dataResponse});
+    }catch(e){  
+        console.log(e);
+        res.json({status:"error",msg:"Error al agregar la Foto"});
+    }
+}
+
+// Seleccionando todas las fotos
+exports.selectFotos  = async (req,res) =>{
+    try {
+        let dataFoto=await Fotos.find();
+        if(dataFoto){
+            res.json({status:"success", dataFoto});
+        }else{
+            res.json({status:"error", msg:"No hay Fotos"});
+        }
+    }catch(error){
+        console.log(error);
+        res.json({status:"error", msg:"No se encontraron las fotos"});
+    }
 }
 
 // agrega un nuevo producto
@@ -79,7 +107,9 @@ exports.actualizarProducto = async (req,res) =>{
         let dataProducto=await Productos.findOne({nombre:req.body.nombre});
         if(dataProducto){
             await Productos.findOneAndUpdate(
-                {_id : dataProducto._id}, {nombre : req.body.nuevoNombre,
+                {_id : dataProducto._id},
+                {
+                nombre : req.body.nuevoNombre,
                 descripcion : req.body.nuevoDescripcion,
                 stock: req.body.nuevoStock,
                 precio: req.body.nuevoPrecio,
